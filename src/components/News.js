@@ -11,11 +11,12 @@ export default class News extends PureComponent {
     };
   }
   async componentDidMount() {
-    await this.fetchData(1, "us");
+    await this.fetchData(1);
   }
-  fetchData = async (page, country) => {
+  fetchData = async (page) => {
+    let { country, category } = this.props;
     let myArticles = await fetch(
-      `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${process.env.REACT_APP_NEWS_API_KEY}&pageSize=8&page=${page}`
+      `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${process.env.REACT_APP_NEWS_API_KEY}&pageSize=8&page=${page}&category=${category }`
     );
     let myJsonArticles = await myArticles.json();
     this.setState({
@@ -25,14 +26,14 @@ export default class News extends PureComponent {
   };
   handlePrevClick = async () => {
     let prevPage = this.state.page - 1;
-    await this.fetchData(prevPage, "us");
+    await this.fetchData(prevPage);
     this.setState({
       page: prevPage,
     });
   };
   handleNextClick = async () => {
     let nextPage = this.state.page + 1;
-    await this.fetchData(nextPage, "us");
+    await this.fetchData(nextPage);
     this.setState({
       page: nextPage,
     });
