@@ -15,7 +15,6 @@ export default class News extends PureComponent {
   }
   fetchData = async (page) => {
     let { country, category } = this.props;
-    console.log("------------------------------------------", process.env.REACT_APP_NEWS_API_KEY)
     let myArticles = await fetch(
       `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${process.env.REACT_APP_NEWS_API_KEY}&pageSize=8&page=${page}&category=${category }`
     );
